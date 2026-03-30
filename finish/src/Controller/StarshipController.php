@@ -9,12 +9,13 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class StarshipController extends AbstractController
 {
-    #[Route('/starships/{id<\d+>}', name: 'app_starship_show')]
+    #[Route('/starships/{id}', name: 'app_starship_show')]
     public function show(int $id, StarshipRepository $repository): Response
     {
         $ship = $repository->find($id);
+
         if (!$ship) {
-            throw $this->createNotFoundException('Starship not found');
+            throw $this->createNotFoundException('Vaisseau spatial non trouvé !');
         }
 
         return $this->render('starship/show.html.twig', [
